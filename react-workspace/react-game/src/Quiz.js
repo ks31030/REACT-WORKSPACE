@@ -74,6 +74,14 @@ const QuizApp = () => {
   const [score, setScore] = useState(0);
   const [showScore, setShowScore] = useState(false);
 
+  //프로그래스바가 100% 되는 값을 넣어주는 함수 생성.
+  const progress = (currentQuestion / questions.length) * 100;
+  //currentQuestion : 현재 사용자가 답한 질문의 번호를 나타내는 상태
+  //question.length : 전체 질문의 갯수
+  //예를 들어서 currentQuestion가 1이고 questions.length 7이라면
+  //progress는 (1/7) * 100 계산돼서 약 14.29%가 됨.
+  //14.29%는 사용자가 퀴즈를 14.29% 완료했음을 보여줄 수 있음.
+
   const handleAnswerButtonClick = (selectedOption) => {
     if (selectedOption === questions[currentQuestion].correctAnswer) {
       setScore(score + 1);
@@ -108,6 +116,8 @@ const QuizApp = () => {
         </div>
       ) : (
         <div>
+          <ProgressBar now={progress} label={`$(progress.toFixed(2))%`}/>
+
           <div className="card">
             <div className="card-body">
               <h2 className="card-title">질문 {currentQuestion + 1}</h2>
